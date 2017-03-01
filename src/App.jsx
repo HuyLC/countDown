@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
 import './App.css';
 import Clock from './Clock';
-import {Form, FormControl, Button} from 'react-bootstrap';
+var DateTimeField = require('react-bootstrap-datetimepicker');
+import {Form} from 'react-bootstrap';
 
 class App extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            deadline: 'Octorber 12, 2017',
-            newDeadline: ''
-        }
-    }
+    constructor(props) {
+    super(props);
+    this.state = {
+      deadline: '12/10/2017',
+      format: 'MM/DD/YYYY',
+      inputFormat: 'MM/DD/YYYY',
+      mode: 'date',
+    };
+  }
 
-    changeDeadline(){
-        this.setState({deadline: this.state.newDeadline});
-    }
+  changeDeadline = (newDeadline) => {
+    return this.setState({deadline: newDeadline});
+  }
+
     render(){
         return ( 
             <div className="App">
@@ -23,13 +27,13 @@ class App extends Component{
                     deadline={this.state.deadline}
                 />
                 <Form inline>
-                    <FormControl 
-                        placeholder='new date'
-                        onChange={event => this.setState({newDeadline: event.target.value})}
+                   <DateTimeField
+                        dateTime={this.state.deadline}
+                        format={this.state.format}
+                        viewMode={this.state.mode}
+                        inputFormat={this.state.inputFormat}
+                        onChange={this.changeDeadline}
                     />
-                    <Button onClick={() => this.changeDeadline()}>
-                        Submit
-                    </Button>
                 </Form>
             </div>
         )
